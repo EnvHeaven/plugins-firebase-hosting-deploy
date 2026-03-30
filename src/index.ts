@@ -15,7 +15,7 @@ export type {
 } from "./types";
 
 export const metadata: FirebaseHostingDeployPluginMetadata = {
-  packageName: "@envheaven/plugins/firebase-hosting-deploy",
+  packageName: "@envheaven/plugins-firebase-hosting-deploy",
   version: "0.1.0",
   pluginId: "firebase-hosting-deploy",
   kind: "deploy",
@@ -33,7 +33,7 @@ export async function inspect(_context: PluginRuntimeContext): Promise<PluginIns
     {
       severity: "error",
       code: "firebase-hosting-deploy-not-implemented",
-      message: "Firebase Hosting deploy is not implemented in @envheaven/plugins/firebase-hosting-deploy v0.1.0.",
+      message: "Firebase Hosting deploy is not implemented in @envheaven/plugins-firebase-hosting-deploy v0.1.0.",
       details: {
         packageName: metadata.packageName,
         version: metadata.version,

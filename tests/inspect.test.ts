@@ -15,7 +15,7 @@ function createContext(): PluginRuntimeContext {
 }
 
 test("exports metadata, inspect, and plugin", async () => {
-  assert.equal(metadata.packageName, "@envheaven/plugins/firebase-hosting-deploy");
+  assert.equal(metadata.packageName, "@envheaven/plugins-firebase-hosting-deploy");
   assert.equal(metadata.version, "0.1.0");
   assert.equal(metadata.stub, true);
   assert.equal(typeof inspect, "function");

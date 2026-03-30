@@ -1,6 +1,6 @@
-# @envheaven/plugins/firebase-hosting-deploy
+# @envheaven/plugins-firebase-hosting-deploy
 
-`@envheaven/plugins/firebase-hosting-deploy@0.1.0` is an intentionally minimal stub package for EnvHeaven.
+`@envheaven/plugins-firebase-hosting-deploy@0.1.0` is an intentionally minimal stub package for EnvHeaven.
 
 ## v0.1.0 Status
 
@@ -31,7 +31,7 @@ Future versions are expected to require:
 ## Installation
 
 ```bash
-npm install @envheaven/plugins/firebase-hosting-deploy
+npm install @envheaven/plugins-firebase-hosting-deploy
 ```
 
 When used with EnvHeaven, install a compatible `envheaven` host package as well.
@@ -43,7 +43,7 @@ import {
   inspect,
   metadata,
   plugin,
-} from "@envheaven/plugins/firebase-hosting-deploy";
+} from "@envheaven/plugins-firebase-hosting-deploy";
 
 console.log(metadata);
 
