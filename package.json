@@ -1,0 +1,37 @@
+{
+  "name": "@envheaven/plugins/firebase-hosting-deploy",
+  "version": "0.1.0",
+  "description": "Stub EnvHeaven plugin for Firebase Hosting deploy inspection.",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build",
+    "test": "tsx --test tests/**/*.test.ts"
+  },
+  "keywords": [
+    "envheaven",
+    "plugin",
+    "firebase",
+    "hosting",
+    "deploy"
+  ],
+  "peerDependencies": {
+    "envheaven": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "envheaven": "file:../envheaven-pkg-01",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
