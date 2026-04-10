@@ -1,6 +1,6 @@
 {
   "name": "@envheaven/plugins-firebase-hosting-deploy",
-  "version": "0.1.1",
+  "version": "0.1.81",
   "description": "Stub EnvHeaven plugin for Firebase Hosting deploy inspection.",
   "license": "MIT",
   "type": "commonjs",
