@@ -3,13 +3,15 @@ export interface FirebaseHostingDeployPluginMetadata {
   version: string;
   pluginId: string;
   kind: "deploy";
-  stub: true;
   description: string;
 }
 
 export interface FirebaseHostingDeployInspectDetails extends Record<string, unknown> {
-  implemented: false;
+  implemented: boolean;
   packageName: string;
   version: string;
-  futurePrerequisites: string[];
+  firebaseCliAvailable: boolean;
+  firebaseCliVersion: string | null;
+  projectId: string | null;
+  site: string | null;
 }

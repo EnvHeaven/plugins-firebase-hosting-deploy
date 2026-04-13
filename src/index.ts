@@ -1,9 +1,13 @@
 import type {
   Diagnostic,
   EnvHeavenPlugin,
+  PluginExecuteResult,
   PluginInspectResult,
   PluginRuntimeContext,
+  ResolvedPlan,
 } from "envheaven";
+import { executeFirebaseDeploy } from "./deploy";
+import { checkFirebaseCli, resolveFirebaseProject } from "./firebase-cli";
 import type {
   FirebaseHostingDeployInspectDetails,
   FirebaseHostingDeployPluginMetadata,
@@ -16,46 +20,44 @@ export type {
 
 export const metadata: FirebaseHostingDeployPluginMetadata = {
   packageName: "@envheaven/plugins-firebase-hosting-deploy",
-  version: "0.1.0",
+  version: "0.2.0",
   pluginId: "firebase-hosting-deploy",
   kind: "deploy",
-  stub: true,
-  description: "Stub EnvHeaven plugin that reports Firebase Hosting deploy as not implemented in v0.1.0.",
+  description:
+    "EnvHeaven plugin for deploying to Firebase Hosting. " +
+    "Supports live and preview channel deployments with project auto-detection.",
 };
 
-const futurePrerequisites = [
-  "Firebase CLI installation",
-  "Firebase project initialization",
-] as const;
+export async function inspect(
+  context: PluginRuntimeContext,
+): Promise<PluginInspectResult> {
+  const diagnostics: Diagnostic[] = [];
 
-export async function inspect(_context: PluginRuntimeContext): Promise<PluginInspectResult> {
-  const diagnostics: Diagnostic[] = [
-    {
-      severity: "error",
-      code: "firebase-hosting-deploy-not-implemented",
-      message: "Firebase Hosting deploy is not implemented in @envheaven/plugins-firebase-hosting-deploy v0.1.0.",
-      details: {
-        packageName: metadata.packageName,
-        version: metadata.version,
-        stub: metadata.stub,
-      },
-    },
-    {
+  const cliCheck = await checkFirebaseCli(context.spawnExecution);
+  diagnostics.push(...cliCheck.diagnostics);
+
+  const projectInfo = resolveFirebaseProject(
+    process.env as Record<string, string>,
+    undefined,
+  );
+  diagnostics.push(...projectInfo.diagnostics);
+
+  if (cliCheck.available) {
+    diagnostics.push({
       severity: "info",
-      code: "firebase-hosting-deploy-future-prerequisites",
-      message:
-        "Future implementation is expected to require Firebase CLI availability and Firebase project initialization.",
-      details: {
-        futurePrerequisites: [...futurePrerequisites],
-      },
-    },
-  ];
+      code: "firebase-hosting-deploy-ready",
+      message: `Firebase Hosting deploy is ready (CLI v${cliCheck.version ?? "unknown"}).`,
+    });
+  }
 
   const details: FirebaseHostingDeployInspectDetails = {
-    implemented: false,
+    implemented: true,
     packageName: metadata.packageName,
     version: metadata.version,
-    futurePrerequisites: [...futurePrerequisites],
+    firebaseCliAvailable: cliCheck.available,
+    firebaseCliVersion: cliCheck.version,
+    projectId: projectInfo.projectId,
+    site: projectInfo.site,
   };
 
   return {
@@ -64,6 +66,14 @@ export async function inspect(_context: PluginRuntimeContext): Promise<PluginIns
   };
 }
 
+export async function execute(
+  plan: ResolvedPlan,
+  context: PluginRuntimeContext,
+): Promise<PluginExecuteResult> {
+  return executeFirebaseDeploy(plan, context);
+}
+
 export const plugin: EnvHeavenPlugin = {
   inspect,
+  execute,
 };
