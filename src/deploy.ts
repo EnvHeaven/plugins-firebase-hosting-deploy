@@ -187,5 +187,37 @@ async function materializeFirebaseWorkspace(
     }
   }
 
+  if (publicDir) {
+    diagnostics.push(...(await ensureBrowserIndexHtml(cwd, publicDir)));
+  }
+
+  return diagnostics;
+}
+
+async function ensureBrowserIndexHtml(cwd: string, publicDir: string): Promise<Diagnostic[]> {
+  const diagnostics: Diagnostic[] = [];
+  const publicPath = path.resolve(cwd, publicDir);
+  const indexHtmlPath = path.join(publicPath, "index.html");
+  const csrIndexHtmlPath = path.join(publicPath, "index.csr.html");
+
+  try {
+    await fs.access(indexHtmlPath);
+    return diagnostics;
+  } catch {
+    // continue
+  }
+
+  try {
+    const csrIndex = await fs.readFile(csrIndexHtmlPath, "utf8");
+    await fs.writeFile(indexHtmlPath, csrIndex, "utf8");
+    diagnostics.push({
+      severity: "info",
+      code: "firebase-browser-index-materialized",
+      message: `Created ${indexHtmlPath} from index.csr.html for Firebase Hosting.`,
+    });
+  } catch {
+    // If neither file exists, keep the deploy behavior unchanged and let Firebase fail normally.
+  }
+
   return diagnostics;
 }
