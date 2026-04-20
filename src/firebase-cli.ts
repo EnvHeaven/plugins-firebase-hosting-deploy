@@ -86,9 +86,9 @@ export function resolveFirebaseProject(
 
 export function buildDeployArgs(
   projectId: string | null,
-  site: string | null,
+  _site: string | null,
   channel: string | null,
-  publicDir: string | null,
+  _publicDir: string | null,
 ): string[] {
   const args = ["deploy", "--only", "hosting"];
 
@@ -104,10 +104,6 @@ export function buildDeployArgs(
     }
   }
 
-  if (site) {
-    args.push("--site", site);
-  }
-
   args.push("--non-interactive");
 
   return args;
@@ -115,11 +111,18 @@ export function buildDeployArgs(
 
 export function resolveChannel(
   resolvedTarget: string,
+  site: string | null,
   executionRaw: Record<string, unknown> | undefined,
 ): string | null {
   const explicit =
     (executionRaw?.["firebaseChannel"] as string) ?? null;
   if (explicit) return explicit;
+
+  // When the deploy already targets a dedicated Hosting site per environment,
+  // publish to that site's live URL instead of creating an extra preview channel.
+  if (site) {
+    return "live";
+  }
 
   switch (resolvedTarget) {
     case "production":
