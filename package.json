@@ -1,14 +1,15 @@
 {
   "name": "@envheaven/plugins-firebase-hosting-deploy",
   "version": "0.1.84-exp.0",
-  "description": "Stub EnvHeaven plugin for Firebase Hosting deploy inspection.",
+  "description": "EnvHeaven plugin for Firebase Hosting deploy workflows.",
   "license": "MIT",
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "docs/readme/logo/envheaven-logo.svg"
   ],
   "engines": {
     "node": ">=20"
@@ -25,6 +26,17 @@
     "hosting",
     "deploy"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EnvHeaven/plugins-firebase-hosting-deploy.git"
+  },
+  "homepage": "https://envheaven.com",
+  "bugs": {
+    "url": "https://github.com/EnvHeaven/plugins-firebase-hosting-deploy/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "envheaven": "^0.1.0"
   },

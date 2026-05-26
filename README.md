@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://envheaven.com">
-    <img src="./docs/readme/logo/envheaven-logo.png" alt="EnvHeaven" width="96" />
+    <img src="./docs/readme/logo/envheaven-logo.svg" alt="EnvHeaven" width="96" />
   </a>
 </p>
 
@@ -30,7 +30,14 @@ It is not a full Firebase management platform. It focuses on Hosting deploy exec
 ## Install
 
 ```sh
+# release track
+npm install @envheaven/plugins-firebase-hosting-deploy@release
+
+# npm default alias for the release track
 npm install @envheaven/plugins-firebase-hosting-deploy
+
+# experimental track
+npm install @envheaven/plugins-firebase-hosting-deploy@exp
 ```
 
 Install the EnvHeaven host package too:
@@ -83,7 +90,7 @@ envheaven deploy production
 
 - [`envheaven`](https://www.npmjs.com/package/envheaven)
 - [`@envheaven/plugins-nodejs-pnpm`](https://www.npmjs.com/package/@envheaven/plugins-nodejs-pnpm)
-- [`@envheaven/plugins-offiline-web-ui`](https://www.npmjs.com/package/@envheaven/plugins-offiline-web-ui)
+- `@envheaven/plugins-offline-web-ui` (prepared corrected Offline Web UI package)
 
 ## License
 
