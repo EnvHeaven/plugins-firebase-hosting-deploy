@@ -1,96 +1,84 @@
+<br />
+
 <p align="center">
   <a href="https://envheaven.com">
     <img src="./docs/readme/logo/envheaven-logo.svg" alt="EnvHeaven" width="96" />
   </a>
+
+  <h1 align="center">EnvHeaven Firebase Hosting Deploy Plugin</h1>
+
+  <p align="center">
+    Environment hell, inverted.
+  </p>
+
+  <p align="center">
+    <a href="#install">Install</a>
+    ·
+    <a href="#usage">Usage</a>
+    ·
+    <a href="#release-channels">Release Channels</a>
+  </p>
 </p>
 
-# @envheaven/plugins-firebase-hosting-deploy
+<div align="center">
 
-> EnvHeaven plugin for Firebase Hosting deploy workflows.
+[![npm](https://img.shields.io/npm/v/@envheaven/plugins-firebase-hosting-deploy)](https://www.npmjs.com/package/@envheaven/plugins-firebase-hosting-deploy)
+[![license](https://img.shields.io/npm/l/@envheaven/plugins-firebase-hosting-deploy)](#license)
+[![plugin](https://img.shields.io/badge/envheaven-plugin-blue)](#usage)
+[![Firebase Hosting](https://img.shields.io/badge/deploy-Firebase%20Hosting-orange)](#requirements)
+[![status](https://img.shields.io/badge/status-experimental%200.x-orange)](#experimental-0x)
 
-[![npm version](https://img.shields.io/npm/v/@envheaven/plugins-firebase-hosting-deploy)](https://www.npmjs.com/package/@envheaven/plugins-firebase-hosting-deploy)
-[![license](https://img.shields.io/npm/l/@envheaven/plugins-firebase-hosting-deploy)](https://www.npmjs.com/package/@envheaven/plugins-firebase-hosting-deploy)
+</div>
 
 > **Experimental 0.x:** EnvHeaven is currently in experimental `0.x` development. APIs, CLI commands, plugin contracts, package names, and release behavior may change before `1.0.0`. Pin versions and read release notes before using it in production workflows.
 
-## What it does
-
-This plugin lets EnvHeaven inspect and execute Firebase Hosting deploy plans.
-
-It can:
-
-- check Firebase CLI availability.
-- resolve Firebase project, site, public directory, and channel settings from the execution context.
-- materialize Firebase Hosting config into `firebase.json` and `.firebaserc` when needed.
-- run `firebase deploy` through EnvHeaven's execution context.
-- report structured diagnostics back to EnvHeaven.
-
-It is not a full Firebase management platform. It focuses on Hosting deploy execution.
-
 ## Install
 
-```sh
-# release track
-npm install @envheaven/plugins-firebase-hosting-deploy@release
+| Channel | Install | Purpose |
+|---|---|---|
+| `release` | `npm install @envheaven/plugins-firebase-hosting-deploy@release` | recommended 0.x release track |
+| `latest` | `npm install @envheaven/plugins-firebase-hosting-deploy` | npm default alias for the release track |
+| `exp` | `npm install @envheaven/plugins-firebase-hosting-deploy@exp` | experimental builds with newer changes |
 
-# npm default alias for the release track
-npm install @envheaven/plugins-firebase-hosting-deploy
+Install compatible `envheaven` host package in the same workflow.
 
-# experimental track
-npm install @envheaven/plugins-firebase-hosting-deploy@exp
-```
+## Usage
 
-Install the EnvHeaven host package too:
-
-```sh
-npm install envheaven
-```
-
-## Use
-
-Example EnvHeaven execution metadata can point at this package:
+Run Firebase Hosting deploy workflows through EnvHeaven.
 
 ```jsonc
 {
   "pluginPackage": "@envheaven/plugins-firebase-hosting-deploy",
   "Execution": {
-    "cwd": "./artifacts/web-site-01-fe-01",
-    "env": {
-      "FIREBASE_PROJECT_ID": "my-firebase-project",
-      "FIREBASE_HOSTING_SITE": "my-hosting-site",
-      "FIREBASE_HOSTING_PUBLIC": "build/browser"
-    }
+    "cwd": "."
   }
 }
 ```
 
-Then run the matching EnvHeaven deploy target from the env repo:
+## What it does
 
-```sh
-envheaven deploy development
-envheaven deploy production
-```
+- Firebase CLI availability checks.
+- Hosting project/site/public directory resolution.
+- optional config materialization.
+- `firebase deploy` execution through EnvHeaven.
 
 ## Requirements
 
-- Node.js `>=20`.
-- EnvHeaven host package.
-- Firebase CLI available in `PATH`.
-- Firebase authentication configured for the target machine/session.
-- A Firebase project and Hosting site configured for the target workflow.
+Node.js `>=20`, EnvHeaven host package, Firebase CLI, Firebase auth, and an existing Hosting site.
 
-## Current limitations
+## Release Channels
 
-- The plugin delegates deployment to the Firebase CLI.
-- It does not provision Firebase projects or Hosting sites.
-- It does not claim a stable API before EnvHeaven `1.0.0`.
-- Public README/docs are still being consolidated.
+| Channel | Install | Purpose |
+|---|---|---|
+| `release` | `npm install @envheaven/plugins-firebase-hosting-deploy@release` | recommended 0.x release track |
+| `latest` | `npm install @envheaven/plugins-firebase-hosting-deploy` | npm default alias for the release track |
+| `exp` | `npm install @envheaven/plugins-firebase-hosting-deploy@exp` | experimental builds with newer changes |
 
-## Related
+`release` is the recommended 0.x track, not a stable API promise.
 
-- [`envheaven`](https://www.npmjs.com/package/envheaven)
-- [`@envheaven/plugins-nodejs-pnpm`](https://www.npmjs.com/package/@envheaven/plugins-nodejs-pnpm)
-- `@envheaven/plugins-offline-web-ui` (prepared corrected Offline Web UI package)
+## Status
+
+Experimental. Plugin contracts may change before EnvHeaven `1.0.0`.
 
 ## License
 
